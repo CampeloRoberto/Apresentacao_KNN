@@ -195,19 +195,19 @@
   }
   .card .num {
     font-family: var(--font-mono);
-    font-size: 13px;
+    font-size: 18px;
     color: var(--cyan);
     letter-spacing: 0.18em;
   }
   .card h3 {
     font-family: var(--font-display);
     font-weight: 500;
-    font-size: 24px;
+    font-size: 32px;
     margin: 10px 0 8px;
     letter-spacing: -0.01em;
   }
   .card p {
-    font-size: 17px;
+    font-size: 23px;
     color: var(--text-dim);
     line-height: 1.5;
     margin: 0;
@@ -349,6 +349,25 @@
   .pt-c { fill: var(--green); }
   .pt-q { fill: #fff; stroke: var(--cyan); stroke-width: 2; }
   .pt-glow { filter: drop-shadow(0 0 6px var(--cyan-glow)); }
+
+  /* Slide 1 — network node alternating blink */
+  @keyframes dot-blink {
+    0%, 100% { opacity: 1; }
+    45%, 55% { opacity: 0.08; }
+  }
+
+  section[data-screen-label="01 Capa"] .net > g:last-of-type circle {
+    animation: dot-blink 3s ease-in-out infinite;
+  }
+  section[data-screen-label="01 Capa"] .net > g:last-of-type circle:nth-child(3n+1) {
+    animation-delay: 0s;
+  }
+  section[data-screen-label="01 Capa"] .net > g:last-of-type circle:nth-child(3n+2) {
+    animation-delay: 1s;
+  }
+  section[data-screen-label="01 Capa"] .net > g:last-of-type circle:nth-child(3n) {
+    animation-delay: 2s;
+  }
 
   /* Legend */
   .legend {
