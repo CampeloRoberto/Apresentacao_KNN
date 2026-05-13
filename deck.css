@@ -1,0 +1,512 @@
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Manrope:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap');
+
+  :root {
+    --bg-0: #04060d;
+    --bg-1: #080c18;
+    --bg-2: #0d1424;
+    --surface: rgba(120, 170, 255, 0.04);
+    --surface-2: rgba(120, 170, 255, 0.07);
+    --border: rgba(140, 180, 255, 0.10);
+    --border-strong: rgba(140, 180, 255, 0.22);
+
+    --text: #e7ecf6;
+    --text-dim: #a7b1c7;
+    --text-muted: #6b7691;
+
+    --cyan: #5ce1ff;
+    --cyan-soft: #7fc4ff;
+    --cyan-glow: rgba(92, 225, 255, 0.45);
+    --gold: #e6b86a;
+    --green: #7ce0a8;
+    --violet: #a98bff;
+    --red: #ff7a8a;
+
+    --font-display: "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
+    --font-body: "Manrope", ui-sans-serif, system-ui, sans-serif;
+    --font-mono: "JetBrains Mono", ui-monospace, Menlo, monospace;
+  }
+
+  html, body {
+    margin: 0;
+    background: #000;
+    color: var(--text);
+    font-family: var(--font-body);
+  }
+
+  deck-stage {
+    --slide-bg: radial-gradient(ellipse 80% 60% at 50% -10%, rgba(92, 225, 255, 0.10), transparent 60%),
+                radial-gradient(ellipse 70% 50% at 90% 110%, rgba(169, 139, 255, 0.07), transparent 60%),
+                linear-gradient(180deg, #060912 0%, #04060d 50%, #03050a 100%);
+  }
+
+  deck-stage > section {
+    background: var(--slide-bg);
+    color: var(--text);
+    font-family: var(--font-body);
+    font-weight: 400;
+    overflow: hidden;
+    position: relative;
+  }
+
+  /* Dot grid texture */
+  deck-stage > section::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image:
+      radial-gradient(circle at 1px 1px, rgba(140, 180, 255, 0.06) 1px, transparent 1px);
+    background-size: 28px 28px;
+    pointer-events: none;
+    mask-image: radial-gradient(ellipse 80% 70% at 50% 50%, #000 40%, transparent 90%);
+    -webkit-mask-image: radial-gradient(ellipse 80% 70% at 50% 50%, #000 40%, transparent 90%);
+  }
+
+  /* ===== Typography ===== */
+  .display {
+    font-family: var(--font-display);
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    line-height: 1.02;
+  }
+  .mono { font-family: var(--font-mono); }
+  .eyebrow {
+    font-family: var(--font-mono);
+    font-size: 18px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--cyan);
+    display: inline-flex;
+    align-items: center;
+    gap: 14px;
+  }
+  .eyebrow::before {
+    content: "";
+    width: 36px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--cyan));
+  }
+
+  h1.slide-title {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 68px;
+    line-height: 1.04;
+    letter-spacing: -0.025em;
+    margin: 0 0 24px 0;
+    color: var(--text);
+  }
+  h1.slide-title .accent { color: var(--cyan); }
+
+  p.lede {
+    font-size: 26px;
+    line-height: 1.45;
+    color: var(--text-dim);
+    max-width: 1100px;
+    margin: 0;
+    font-weight: 300;
+  }
+
+  /* ===== Slide frame layout ===== */
+  .slide {
+    position: absolute;
+    inset: 0;
+    padding: 80px 110px 90px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    z-index: 1;
+  }
+
+  .slide-chrome {
+    position: absolute;
+    inset: 36px 56px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    pointer-events: none;
+    z-index: 0;
+  }
+  .slide-chrome::before, .slide-chrome::after {
+    content: "";
+    position: absolute;
+    width: 14px; height: 14px;
+    border: 1px solid var(--cyan);
+    opacity: 0.55;
+  }
+  .slide-chrome::before { top: -1px; left: -1px; border-right: none; border-bottom: none; }
+  .slide-chrome::after { bottom: -1px; right: -1px; border-left: none; border-top: none; }
+
+  .topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: var(--font-mono);
+    font-size: 13px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 56px;
+  }
+  .topbar .left { display: flex; gap: 18px; align-items: center; }
+  .topbar .dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: var(--cyan);
+    box-shadow: 0 0 10px var(--cyan-glow);
+  }
+  .topbar .right { color: var(--text-muted); }
+
+  .slide-footer {
+    position: absolute;
+    left: 110px; right: 110px; bottom: 44px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+  }
+
+  /* ===== Pill / chip ===== */
+  .chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 16px;
+    border: 1px solid var(--border-strong);
+    border-radius: 999px;
+    background: var(--surface);
+    font-family: var(--font-mono);
+    font-size: 13px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+  }
+  .chip .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--cyan); box-shadow: 0 0 8px var(--cyan-glow); }
+
+  /* ===== Cards ===== */
+  .card {
+    background: linear-gradient(180deg, rgba(20,28,48,0.55), rgba(10,16,32,0.4));
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 28px 30px;
+    backdrop-filter: blur(8px);
+    position: relative;
+  }
+  .card .num {
+    font-family: var(--font-mono);
+    font-size: 13px;
+    color: var(--cyan);
+    letter-spacing: 0.18em;
+  }
+  .card h3 {
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: 24px;
+    margin: 10px 0 8px;
+    letter-spacing: -0.01em;
+  }
+  .card p {
+    font-size: 17px;
+    color: var(--text-dim);
+    line-height: 1.5;
+    margin: 0;
+  }
+
+  /* ===== Buttons / keys ===== */
+  .kbd {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    padding: 4px 8px;
+    border-radius: 4px;
+    border: 1px solid var(--border-strong);
+    background: rgba(255,255,255,0.04);
+    color: var(--text-dim);
+  }
+
+  /* ===== Animations base ===== */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(14px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+  @keyframes drawLine { from { stroke-dashoffset: var(--len, 1000); } to { stroke-dashoffset: 0; } }
+  @keyframes pulse {
+    0%, 100% { transform: scale(1); opacity: 0.9; }
+    50% { transform: scale(1.08); opacity: 1; }
+  }
+  @keyframes radar {
+    0% { r: 0; opacity: 0.9; }
+    100% { r: 220; opacity: 0; }
+  }
+  @keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.25; }
+  }
+
+  /* Re-trigger animations when slide becomes active.
+     deck-stage marks the visible slide with [data-deck-active]. */
+  deck-stage > section [data-anim] { opacity: 0; }
+  deck-stage > section[data-deck-active] [data-anim="fade-up"] {
+    animation: fadeUp 0.7s cubic-bezier(.2,.7,.2,1) forwards;
+  }
+  deck-stage > section[data-deck-active] [data-anim="fade"] {
+    animation: fadeIn 0.7s ease forwards;
+  }
+  /* Print: show everything */
+  @media print {
+    deck-stage > section [data-anim] { opacity: 1 !important; animation: none !important; }
+  }
+  /* Stagger delays */
+  [data-delay="0"] { animation-delay: 0s !important; }
+  [data-delay="1"] { animation-delay: 0.10s !important; }
+  [data-delay="2"] { animation-delay: 0.20s !important; }
+  [data-delay="3"] { animation-delay: 0.30s !important; }
+  [data-delay="4"] { animation-delay: 0.40s !important; }
+  [data-delay="5"] { animation-delay: 0.55s !important; }
+  [data-delay="6"] { animation-delay: 0.70s !important; }
+  [data-delay="7"] { animation-delay: 0.85s !important; }
+  [data-delay="8"] { animation-delay: 1.00s !important; }
+  [data-delay="9"] { animation-delay: 1.15s !important; }
+  [data-delay="10"] { animation-delay: 1.30s !important; }
+
+  /* ===== Code blocks ===== */
+  pre.code {
+    font-family: var(--font-mono);
+    font-size: 16px;
+    line-height: 1.55;
+    background: linear-gradient(180deg, rgba(8,12,24,0.85), rgba(6,10,20,0.75));
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 22px 26px;
+    color: #cbd6ea;
+    margin: 0;
+    overflow: hidden;
+    position: relative;
+  }
+  pre.code .kw { color: var(--violet); }
+  pre.code .fn { color: var(--cyan); }
+  pre.code .str { color: var(--green); }
+  pre.code .num { color: var(--gold); }
+  pre.code .com { color: var(--text-muted); font-style: italic; }
+  pre.code .cls { color: var(--gold); }
+
+  /* ===== Tables ===== */
+  table.matrix {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    font-family: var(--font-body);
+  }
+  table.matrix th, table.matrix td {
+    padding: 16px 22px;
+    text-align: left;
+    border-bottom: 1px solid var(--border);
+    font-size: 18px;
+  }
+  table.matrix th {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    font-weight: 500;
+    border-bottom: 1px solid var(--border-strong);
+  }
+  table.matrix td .mono { color: var(--cyan); font-weight: 500; }
+  table.matrix tr:last-child td { border-bottom: none; }
+
+  /* Utilities */
+  .row { display: flex; gap: 24px; }
+  .col { display: flex; flex-direction: column; gap: 24px; }
+  .grow { flex: 1; }
+  .center { display: flex; align-items: center; justify-content: center; }
+
+  /* Title slide network background */
+  .net {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  /* Big number callout */
+  .bignum {
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: 120px;
+    line-height: 1;
+    letter-spacing: -0.04em;
+    background: linear-gradient(180deg, #ffffff 0%, #9bb6df 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  /* SVG point styles */
+  .pt-a { fill: var(--cyan); }
+  .pt-b { fill: var(--gold); }
+  .pt-c { fill: var(--green); }
+  .pt-q { fill: #fff; stroke: var(--cyan); stroke-width: 2; }
+  .pt-glow { filter: drop-shadow(0 0 6px var(--cyan-glow)); }
+
+  /* Legend */
+  .legend {
+    display: flex;
+    gap: 22px;
+    font-family: var(--font-mono);
+    font-size: 13px;
+    letter-spacing: 0.1em;
+    color: var(--text-dim);
+  }
+  .legend .item { display: inline-flex; align-items: center; gap: 8px; }
+  .legend .swatch { width: 12px; height: 12px; border-radius: 50%; }
+
+  /* Member chips on cover */
+  .members {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px 24px;
+    font-family: var(--font-mono);
+    font-size: 18px;
+    color: var(--text-dim);
+    letter-spacing: 0.04em;
+  }
+  .members .m { display: flex; align-items: center; gap: 10px; }
+  .members .m::before {
+    content: "";
+    width: 6px; height: 6px; border-radius: 50%;
+    background: var(--cyan); opacity: 0.7;
+  }
+
+  /* Number ticks */
+  .ticks {
+    display: flex; gap: 8px; align-items: center;
+    font-family: var(--font-mono); font-size: 12px;
+    color: var(--text-muted); letter-spacing: 0.15em;
+  }
+
+  /* Hash highlight for hamming */
+  .hch { color: var(--text); padding: 0 4px; border-radius: 3px; }
+  .hch.diff { color: var(--red); background: rgba(255,122,138,0.12); animation: blink 1.4s ease-in-out infinite; }
+
+  /* Slide 7 — app cards iconography & gentle motion */
+  .app-card { padding: 26px 26px 24px; position: relative; overflow: hidden; }
+  .app-card .app-icon {
+    display: block;
+    margin-bottom: 14px;
+    animation: iconFloat 4.5s ease-in-out infinite;
+  }
+  .app-card:nth-child(2n) .app-icon { animation-delay: -1.5s; }
+  .app-card:nth-child(3n) .app-icon { animation-delay: -3s; }
+  @keyframes iconFloat {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    50% { transform: translateY(-5px) rotate(-1deg); }
+  }
+
+  /* Slide 11 — step-by-step interaction */
+  .step-item { transition: all 0.4s ease; opacity: 0.45; }
+  .step-item.active { opacity: 1; transform: translateX(8px); }
+  .step-item.active .step-num { color: var(--cyan) !important; transform: scale(1.15); }
+  .step-num { display: inline-block; transition: transform 0.3s ease; }
+
+  deck-stage > section[data-deck-active] [data-anim] { will-change: opacity, transform; }
+
+  /* SVG step animation classes (slide 11) */
+  .s11-step-glow { opacity: 0; transition: opacity 0.5s ease; }
+  .s11-step-glow.show { opacity: 1; }
+  .s11-dashed-line {
+    stroke-dasharray: 5 4;
+    stroke-dashoffset: 200;
+    opacity: 0;
+    transition: stroke-dashoffset 0.7s ease, opacity 0.4s ease;
+  }
+  .s11-dashed-line.show { opacity: 0.85; stroke-dashoffset: 0; }
+  .s11-ring {
+    opacity: 0;
+    transform: scale(0.6);
+    transform-origin: center;
+    transform-box: fill-box;
+    transition: opacity 0.4s ease, transform 0.4s cubic-bezier(.2,.7,.2,1.4);
+  }
+  .s11-ring.show { opacity: 0.8; transform: scale(1); }
+  .s11-query {
+    opacity: 0;
+    transform: scale(0.4);
+    transform-origin: 360px 300px;
+    transition: opacity 0.5s ease, transform 0.5s cubic-bezier(.2,.7,.2,1.4);
+  }
+  .s11-query.show { opacity: 1; transform: scale(1); }
+  .s11-vote { opacity: 0; transition: opacity 0.5s ease; }
+  .s11-vote.show { opacity: 1; }
+  .s11-result-glow { opacity: 0; transition: opacity 0.6s ease; }
+  .s11-result-glow.show { opacity: 1; }
+
+  /* Slides 13/14/15 — distance figure entry animations */
+  .dist-fig circle, .dist-fig line, .dist-fig text, .dist-fig polyline, .dist-fig polygon, .dist-fig rect, .dist-fig path { opacity: 0; }
+  deck-stage > section[data-deck-active] .dist-fig circle,
+  deck-stage > section[data-deck-active] .dist-fig line,
+  deck-stage > section[data-deck-active] .dist-fig text,
+  deck-stage > section[data-deck-active] .dist-fig polyline,
+  deck-stage > section[data-deck-active] .dist-fig polygon,
+  deck-stage > section[data-deck-active] .dist-fig rect,
+  deck-stage > section[data-deck-active] .dist-fig path {
+    animation: distAppear 0.6s cubic-bezier(.2,.7,.2,1.2) forwards;
+  }
+  @keyframes distAppear { from { opacity: 0; transform: scale(0.85); } to { opacity: 1; transform: scale(1); } }
+
+  /* Slide 17 — K-decision boundary, gentle motion */
+  .k-chart svg path { animation: dash 4s ease-in-out infinite alternate; }
+  @keyframes dash {
+    from { stroke-dasharray: 1000; stroke-dashoffset: 1000; }
+    to { stroke-dasharray: 1000; stroke-dashoffset: 0; }
+  }
+
+  /* Slide 18 — kd-tree subtle pulse */
+  .kdtree-svg line { animation: kdPulse 3.5s ease-in-out infinite; }
+  .kdtree-svg line:nth-child(odd) { animation-delay: -1.5s; }
+  @keyframes kdPulse { 0%,100% { opacity: 0.6; } 50% { opacity: 0.9; } }
+
+  /* Slide 25 — Omega graph animation */
+  .omega-graph .lower, .omega-graph .upper { stroke-dasharray: 800; stroke-dashoffset: 800; }
+  deck-stage > section[data-deck-active] .omega-graph .lower { animation: omegaDraw 1.8s ease-out 0.3s forwards; }
+  deck-stage > section[data-deck-active] .omega-graph .upper { animation: omegaDraw 1.8s ease-out 0.9s forwards; }
+  @keyframes omegaDraw { to { stroke-dashoffset: 0; } }
+
+  /* Slide 20/22/27 — fix bignum overlap with caption */
+  .bignum-stack { display: flex; flex-direction: column; align-items: flex-end; gap: 8px; }
+  .bignum-stack .bignum { line-height: 0.95; }
+  .bignum-stack .caption {
+    font-family: var(--font-mono);
+    color: var(--text-muted);
+    letter-spacing: 0.18em;
+    font-size: 14px;
+    text-transform: uppercase;
+  }
+
+  /* Slide 4 — KNN scatter plot */
+  .knn-lines line { opacity: 0; }
+  deck-stage > section[data-deck-active] .knn-lines line {
+    animation: knnFade 0.45s ease forwards;
+  }
+  deck-stage > section[data-deck-active] .knn-lines line:nth-child(1) { animation-delay: 0.58s; }
+  deck-stage > section[data-deck-active] .knn-lines line:nth-child(2) { animation-delay: 0.70s; }
+  deck-stage > section[data-deck-active] .knn-lines line:nth-child(3) { animation-delay: 0.82s; }
+  deck-stage > section[data-deck-active] .knn-lines line:nth-child(4) { animation-delay: 0.94s; }
+  deck-stage > section[data-deck-active] .knn-lines line:nth-child(5) { animation-delay: 1.06s; }
+  @keyframes knnFade { from { opacity: 0; } to { opacity: 0.7; } }
+
+  /* Slide 3 — timeline line draw */
+  .tl-line {
+    stroke-dasharray: 1700;
+    stroke-dashoffset: 1700;
+    --len: 1700;
+  }
+  deck-stage > section[data-deck-active] .tl-line {
+    animation: drawLine 1.0s ease-out 0.25s forwards;
+  }
+
+  /* Fonts: bump small/legibility across the deck */
+  table.matrix td { font-size: 19px; }
+  table.matrix th { font-size: 14px; }
+  .slide-footer { font-size: 13px; }
