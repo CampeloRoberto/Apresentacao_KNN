@@ -2470,9 +2470,23 @@
           Antes de treinar qualquer modelo, os dados precisam estar limpos.
           Dados sujos introduzem ruído que o K-NN absorve diretamente — não há etapa de treinamento para filtrar inconsistências.
         </p>
-        <div style="padding: 18px 24px; border-left: 3px solid var(--cyan); background: rgba(92,225,255,0.05);">
-          <div class="mono" style="color: var(--cyan); font-size: 16px; letter-spacing: 0.2em; margin-bottom: 10px;">POR QUÊ ISSO IMPORTA</div>
-          <div style="font-size: 26px; color: var(--text-dim);">K-NN é um <strong style="color: var(--text);">lazy learner</strong> — memoriza todos os pontos. Qualquer lixo nos dados vira vizinho de alguém.</div>
+        <div id="sl40a-clean" style="border:1px solid rgba(92,225,255,0.25);border-radius:6px;overflow:hidden;background:rgba(0,0,0,0.2);">
+          <div style="padding:9px 18px;background:rgba(92,225,255,0.07);border-bottom:1px solid rgba(92,225,255,0.15);display:flex;align-items:center;justify-content:space-between;">
+            <span class="mono" style="color:var(--cyan);font-size:16px;letter-spacing:0.2em;">LIMPEZA DOS DADOS</span>
+            <span id="sl40a-status" class="mono" style="font-size:14px;color:var(--text-dim);">aguardando...</span>
+          </div>
+          <div style="display:grid;grid-template-columns:44px 64px 90px 40px 1fr;padding:5px 18px;border-bottom:1px solid rgba(255,255,255,0.05);">
+            <span class="mono" style="font-size:13px;color:#6b7691;letter-spacing:0.06em;">ID</span>
+            <span class="mono" style="font-size:13px;color:#6b7691;letter-spacing:0.06em;">IDADE</span>
+            <span class="mono" style="font-size:13px;color:#6b7691;letter-spacing:0.06em;">RENDA</span>
+            <span class="mono" style="font-size:13px;color:#6b7691;letter-spacing:0.06em;">CLS</span>
+            <span class="mono" style="font-size:13px;color:#6b7691;letter-spacing:0.06em;">STATUS</span>
+          </div>
+          <div id="sl40a-rows" style="padding:4px 18px 6px;"></div>
+          <div id="sl40a-summary" style="padding:8px 18px;background:rgba(92,225,255,0.06);border-top:1px solid rgba(92,225,255,0.12);display:flex;align-items:center;gap:10px;opacity:0;transition:opacity 0.6s;">
+            <span style="color:var(--cyan);font-size:20px;">✓</span>
+            <span class="mono" style="color:var(--cyan);font-size:14px;letter-spacing:0.08em;">3 válidos · 1 duplicado removido · 1 imputado · 1 outlier removido</span>
+          </div>
         </div>
       </div>
       <div style="flex: 1;" data-anim="fade-up" data-delay="3">
@@ -2499,6 +2513,161 @@
     <div class="slide-footer"><span>Dado limpo &gt; algoritmo complexo</span><span>31 / 37</span></div>
   </div>
 </section>
+<script>
+(function () {
+  var timers = [];
+
+  function clearTimers() {
+    timers.forEach(clearTimeout);
+    timers = [];
+  }
+
+  function after(ms, fn) {
+    timers.push(setTimeout(fn, ms));
+  }
+
+  function badge(color, bg, border, label) {
+    return '<span style="background:' + bg + ';color:' + color + ';border:1px solid ' + border + ';border-radius:3px;padding:3px 10px;font-size:12px;letter-spacing:0.1em;white-space:nowrap;">' + label + '</span>';
+  }
+
+  function runCleanAnim() {
+    clearTimers();
+    var rowsEl = document.getElementById('sl40a-rows');
+    var statusEl = document.getElementById('sl40a-status');
+    var summaryEl = document.getElementById('sl40a-summary');
+    if (!rowsEl) return;
+
+    rowsEl.innerHTML = '';
+    statusEl.textContent = 'analisando...';
+    statusEl.style.color = 'var(--text-dim)';
+    summaryEl.style.opacity = '0';
+    summaryEl.style.transition = 'none';
+
+    var GRID = 'display:grid;grid-template-columns:44px 64px 90px 40px 1fr;align-items:center;padding:13px 0;border-bottom:1px solid rgba(255,255,255,0.04);';
+    var data = [
+      { id: '25', idade: '34', renda: '52k', cls: 'A', kind: 'valid'   },
+      { id: '27', idade: '97', renda: '18k', cls: 'B', kind: 'outlier' },
+      { id: '28', idade: '34', renda: '52k', cls: 'A', kind: 'dup'     },
+      { id: '31', idade: '—',  renda: '37k', cls: 'C', kind: 'missing' },
+      { id: '33', idade: '28', renda: '45k', cls: 'B', kind: 'valid'   },
+    ];
+
+    var rowEls = data.map(function (r) {
+      var div = document.createElement('div');
+      div.style.cssText = GRID + 'transition:background 0.4s,opacity 0.5s;';
+      div.innerHTML =
+        '<span class="mono" style="font-size:18px;color:var(--text-dim);">' + r.id + '</span>' +
+        '<span class="mono" style="font-size:18px;transition:color 0.3s;" id="sl40a-age-' + r.id + '">' + r.idade + '</span>' +
+        '<span class="mono" style="font-size:18px;">' + r.renda + '</span>' +
+        '<span class="mono" style="font-size:18px;">' + r.cls + '</span>' +
+        '<span id="sl40a-badge-' + r.id + '"></span>';
+      rowsEl.appendChild(div);
+      return div;
+    });
+
+    // Força reflow antes de iniciar transições de opacidade do summary
+    void summaryEl.offsetHeight;
+    summaryEl.style.transition = 'opacity 0.6s';
+
+    var t = 600; // pausa inicial antes de começar a limpar
+
+    // Phase 2 — flag duplicado (ID 28, index 2)
+    after(t, function () {
+      rowEls[2].style.background = 'rgba(255,80,80,0.07)';
+      document.getElementById('sl40a-badge-28').innerHTML = badge('#ff8080','rgba(255,80,80,0.18)','rgba(255,80,80,0.4)','DUPLICADO');
+    });
+    t += 700;
+
+    // Phase 3 — remove duplicado
+    after(t, function () {
+      rowEls[2].style.opacity = '0.18';
+      rowEls[2].style.textDecoration = 'line-through';
+    });
+    t += 600;
+
+    // Phase 4 — flag outlier (ID 27, index 1)
+    after(t, function () {
+      rowEls[1].style.background = 'rgba(230,184,106,0.07)';
+      document.getElementById('sl40a-badge-27').innerHTML = badge('var(--gold)','rgba(230,184,106,0.18)','rgba(230,184,106,0.4)','OUTLIER');
+    });
+    t += 700;
+
+    // Phase 5 — remove outlier
+    after(t, function () {
+      rowEls[1].style.opacity = '0.18';
+      rowEls[1].style.textDecoration = 'line-through';
+    });
+    t += 600;
+
+    // Phase 6 — flag missing (ID 31, index 3)
+    after(t, function () {
+      rowEls[3].style.background = 'rgba(255,220,80,0.06)';
+      document.getElementById('sl40a-badge-31').innerHTML = badge('#ffd94d','rgba(255,220,80,0.15)','rgba(255,220,80,0.35)','AUSENTE');
+      document.getElementById('sl40a-age-31').style.color = '#ffd94d';
+    });
+    t += 800;
+
+    // Phase 7 — impute missing
+    after(t, function () {
+      var ageEl = document.getElementById('sl40a-age-31');
+      ageEl.textContent = '29';
+      ageEl.style.color = 'var(--cyan)';
+      document.getElementById('sl40a-badge-31').innerHTML = badge('var(--cyan)','rgba(92,225,255,0.1)','rgba(92,225,255,0.3)','IMPUTADO');
+      rowEls[3].style.background = 'rgba(92,225,255,0.04)';
+    });
+    t += 700;
+
+    // Phase 8 — mark valids
+    after(t, function () {
+      [0, 4].forEach(function (i) {
+        document.getElementById('sl40a-badge-' + data[i].id).innerHTML = badge('#5ddc88','rgba(80,220,120,0.1)','rgba(80,220,120,0.3)','VÁLIDO');
+        rowEls[i].style.background = 'rgba(80,220,120,0.04)';
+      });
+      statusEl.textContent = 'concluído ✓';
+      statusEl.style.color = 'var(--cyan)';
+    });
+    t += 500;
+
+    // Phase 9 — summary
+    after(t, function () { summaryEl.style.opacity = '1'; });
+  }
+
+  // Referência direta ao section — robusta contra reescrita do data-screen-label pelo deck-stage
+  var targetSection = document.getElementById('sl40a-clean') &&
+                      document.getElementById('sl40a-clean').closest('section');
+
+  function checkAndRun(e) {
+    var activeSlide = e ? e.detail.slide : null;
+    if (!activeSlide) {
+      // chamada manual (init): busca o slide ativo agora
+      var stage = document.querySelector('deck-stage');
+      if (!stage) return;
+      activeSlide = stage.querySelector(':scope > section[data-deck-active]');
+    }
+    if (activeSlide && activeSlide === targetSection) {
+      runCleanAnim();
+    } else {
+      clearTimers();
+    }
+  }
+
+  function init() {
+    var stage = document.querySelector('deck-stage');
+    if (!stage) return;
+    stage.addEventListener('slidechange', checkAndRun);
+    // Verifica se este slide já está ativo no carregamento
+    checkAndRun(null);
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    // Script carregado após DOMContentLoaded (inline no body)
+    // deck-stage pode ainda não ter disparado slidechange; aguarda um tick
+    setTimeout(init, 0);
+  }
+})();
+</script>
 
 <!-- SLIDE 40b — NORMALIZAÇÃO -->
 <section data-screen-label="40b Normalização">
