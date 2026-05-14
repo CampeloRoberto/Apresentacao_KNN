@@ -1280,6 +1280,25 @@
   </div>
 </section>
 
+<style>
+/* K-chart animations — Slide 17 */
+.k-pt { opacity: 0; transform-box: fill-box; transform-origin: center; }
+.k-path-over  { stroke-dasharray: 590; stroke-dashoffset: 590; }
+.k-path-eq    { stroke-dasharray: 270; stroke-dashoffset: 270; }
+.k-path-under { stroke-dasharray: 205; stroke-dashoffset: 205; }
+.k-ring { opacity: 0; transform-box: fill-box; transform-origin: center; }
+.k-show { opacity: 0; }
+.k-active .k-pt        { animation: k-pt-pop  0.4s cubic-bezier(.22,.68,0,1.2) forwards; }
+.k-active .k-path-over { animation: k-draw    1.4s ease forwards; }
+.k-active .k-path-eq   { animation: k-draw    1.0s ease forwards; }
+.k-active .k-path-under{ animation: k-draw    0.7s ease forwards; }
+.k-active .k-ring      { animation: k-pt-pop  0.5s cubic-bezier(.22,.68,0,1.2) forwards; }
+.k-active .k-show      { animation: k-fade-in 0.4s ease forwards; }
+@keyframes k-pt-pop  { from{opacity:0;transform:scale(0)} 60%{transform:scale(1.3)} to{opacity:1;transform:scale(1)} }
+@keyframes k-draw    { to{stroke-dashoffset:0} }
+@keyframes k-fade-in { from{opacity:0} to{opacity:1} }
+</style>
+
 <!-- SLIDE 17 — COMO ESCOLHER K -->
 <section data-screen-label="17 Escolher K">
   <div class="slide-chrome"></div>
@@ -1289,34 +1308,114 @@
     <div class="eyebrow" data-anim="fade-up" data-delay="0" style="font-size: 22px;">Hiperparâmetro principal</div>
     <h1 class="slide-title" data-anim="fade-up" data-delay="1">Como escolher <span class="accent">K</span>?</h1>
 
-    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 50px;">
+    <div class="k-anim-root" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 50px;">
+
+      <!-- K=1 OVERFITTING -->
       <div data-anim="fade-up" data-delay="2" class="card k-chart" style="text-align: center; padding: 28px;">
         <div class="num" style="font-size: 16px;">K = 1</div>
-        <svg viewBox="0 0 220 180" style="width:100%; height: 200px; margin: 10px 0;">
-          <path d="M 20 90 Q 60 30, 110 90 T 200 90" fill="none" stroke="#ff7a8a" stroke-width="3"></path>
-          <g><circle cx="40" cy="60" r="7" class="pt-a"></circle><circle cx="80" cy="100" r="7" class="pt-a"></circle><circle cx="60" cy="130" r="7" class="pt-b"></circle><circle cx="130" cy="60" r="7" class="pt-b"></circle><circle cx="160" cy="120" r="7" class="pt-a"></circle><circle cx="190" cy="70" r="7" class="pt-b"></circle></g>
+        <svg viewBox="0 0 220 180" style="width:100%; height: 200px; margin: 10px 0; overflow:visible;">
+          <!-- Fronteira extremamente irregular: segue cada ponto de treino -->
+          <path class="k-path-over" d="M 0,75 L 12,35 L 30,90 L 50,25 L 68,95 L 90,45 L 110,92 L 130,48 L 145,85 L 158,38 L 172,80 L 220,58"
+                fill="none" stroke="#ff7a8a" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"
+                style="animation-delay:0.70s;"/>
+          <!-- Ilha: ponto laranja isolado no território ciano (K=1 cria região própria) -->
+          <circle class="k-ring" cx="52" cy="92" r="20"
+                  fill="rgba(230,184,106,0.12)" stroke="#e6b86a" stroke-width="1.5" stroke-dasharray="4 3"
+                  style="animation-delay:1.80s;"/>
+          <!-- Ilha: ponto ciano isolado no território laranja -->
+          <circle class="k-ring" cx="148" cy="75" r="20"
+                  fill="rgba(92,225,255,0.09)" stroke="#5ce1ff" stroke-width="1.5" stroke-dasharray="4 3"
+                  style="animation-delay:2.10s;"/>
+          <!-- Cluster ciano (superior-esquerdo) -->
+          <circle class="k-pt pt-a" cx="22" cy="22" r="7" style="animation-delay:0.00s;"/>
+          <circle class="k-pt pt-a" cx="45" cy="16" r="7" style="animation-delay:0.05s;"/>
+          <circle class="k-pt pt-a" cx="28" cy="48" r="7" style="animation-delay:0.10s;"/>
+          <circle class="k-pt pt-a" cx="58" cy="36" r="7" style="animation-delay:0.15s;"/>
+          <circle class="k-pt pt-a" cx="38" cy="65" r="7" style="animation-delay:0.20s;"/>
+          <!-- Outlier ciano no território laranja -->
+          <circle class="k-pt pt-a" cx="148" cy="75" r="7" style="animation-delay:0.25s;"/>
+          <!-- Cluster laranja (inferior-direito) -->
+          <circle class="k-pt pt-b" cx="155" cy="118" r="7" style="animation-delay:0.30s;"/>
+          <circle class="k-pt pt-b" cx="172" cy="106" r="7" style="animation-delay:0.35s;"/>
+          <circle class="k-pt pt-b" cx="158" cy="140" r="7" style="animation-delay:0.40s;"/>
+          <circle class="k-pt pt-b" cx="180" cy="128" r="7" style="animation-delay:0.45s;"/>
+          <circle class="k-pt pt-b" cx="165" cy="155" r="7" style="animation-delay:0.50s;"/>
+          <!-- Outlier laranja no território ciano -->
+          <circle class="k-pt pt-b" cx="52" cy="92" r="7" style="animation-delay:0.55s;"/>
         </svg>
         <h3 style="color: var(--red); font-size: 26px;">Overfitting</h3>
-        <p style="font-size: 19px;">Fronteira ruidosa, segue cada outlier — o modelo decora.</p>
+        <p style="font-size: 19px;">Fronteira caótica segue cada outlier — modelo decora o ruído.</p>
       </div>
+
+      <!-- K IDEAL — EQUILÍBRIO -->
       <div data-anim="fade-up" data-delay="3" class="card k-chart" style="text-align: center; padding: 28px; border-color: var(--cyan);">
         <div class="num" style="color: var(--cyan); font-size: 16px;">K IDEAL</div>
-        <svg viewBox="0 0 220 180" style="width:100%; height: 200px; margin: 10px 0;">
-          <path d="M 20 110 Q 110 60, 200 90" fill="none" stroke="#5ce1ff" stroke-width="3"></path>
-          <g><circle cx="40" cy="60" r="7" class="pt-a"></circle><circle cx="80" cy="100" r="7" class="pt-a"></circle><circle cx="60" cy="130" r="7" class="pt-b"></circle><circle cx="130" cy="60" r="7" class="pt-b"></circle><circle cx="160" cy="120" r="7" class="pt-a"></circle><circle cx="190" cy="70" r="7" class="pt-b"></circle></g>
+        <svg viewBox="0 0 220 180" style="width:100%; height: 200px; margin: 10px 0; overflow:visible;">
+          <!-- Fronteira com curvatura visível — pontos espalhados ao longo da diagonal -->
+          <path class="k-path-eq" d="M 5,158 Q 110,60 215,18"
+                fill="none" stroke="#5ce1ff" stroke-width="2.5" stroke-linecap="round"
+                style="animation-delay:0.70s;"/>
+          <!-- Pontos cianos: espalhados diagonalmente acima da curva -->
+          <circle class="k-pt pt-a" cx="20"  cy="105" r="7" style="animation-delay:0.00s;"/>
+          <circle class="k-pt pt-a" cx="45"  cy="82"  r="7" style="animation-delay:0.05s;"/>
+          <circle class="k-pt pt-a" cx="70"  cy="58"  r="7" style="animation-delay:0.10s;"/>
+          <circle class="k-pt pt-a" cx="100" cy="40"  r="7" style="animation-delay:0.15s;"/>
+          <circle class="k-pt pt-a" cx="138" cy="22"  r="7" style="animation-delay:0.20s;"/>
+          <!-- Outlier ciano: abaixo da curva — erro tolerado pelo K ideal -->
+          <circle class="k-pt pt-a" cx="170" cy="60"  r="7" style="animation-delay:0.25s;"/>
+          <!-- Pontos laranjas: espalhados diagonalmente abaixo da curva -->
+          <circle class="k-pt pt-b" cx="38"  cy="152" r="7" style="animation-delay:0.30s;"/>
+          <circle class="k-pt pt-b" cx="65"  cy="138" r="7" style="animation-delay:0.35s;"/>
+          <circle class="k-pt pt-b" cx="95"  cy="118" r="7" style="animation-delay:0.40s;"/>
+          <circle class="k-pt pt-b" cx="128" cy="98"  r="7" style="animation-delay:0.45s;"/>
+          <circle class="k-pt pt-b" cx="158" cy="82"  r="7" style="animation-delay:0.50s;"/>
+          <!-- Outlier laranja: acima da curva — erro tolerado pelo K ideal -->
+          <circle class="k-pt pt-b" cx="48"  cy="112" r="7" style="animation-delay:0.55s;"/>
         </svg>
         <h3 style="color: var(--cyan); font-size: 26px;">Equilíbrio</h3>
-        <p style="font-size: 19px;">Generaliza bem, fronteira suave — o ponto certo.</p>
+        <p style="font-size: 19px;">Fronteira suave generaliza bem — 2 outliers aceitos como ruído.</p>
       </div>
+
+      <!-- K MUITO ALTO — UNDERFITTING -->
       <div data-anim="fade-up" data-delay="4" class="card k-chart" style="text-align: center; padding: 28px;">
         <div class="num" style="font-size: 16px;">K MUITO ALTO</div>
-        <svg viewBox="0 0 220 180" style="width:100%; height: 200px; margin: 10px 0;">
-          <line x1="20" y1="90" x2="200" y2="90" stroke="#e6b86a" stroke-width="3"></line>
-          <g><circle cx="40" cy="60" r="7" class="pt-a"></circle><circle cx="80" cy="100" r="7" class="pt-a"></circle><circle cx="60" cy="130" r="7" class="pt-b"></circle><circle cx="130" cy="60" r="7" class="pt-b"></circle><circle cx="160" cy="120" r="7" class="pt-a"></circle><circle cx="190" cy="70" r="7" class="pt-b"></circle></g>
+        <svg viewBox="0 0 220 180" style="width:100%; height: 200px; margin: 10px 0; overflow:visible;">
+          <!-- Fronteira reta: modelo simples demais, como regressão linear em dados de cluster -->
+          <line class="k-path-under" x1="10" y1="94" x2="210" y2="94"
+                stroke="#e6b86a" stroke-width="2.5" stroke-linecap="round"
+                style="animation-delay:0.70s;"/>
+          <!-- Cluster ciano 1 (topo-esquerdo) — classificado corretamente acima da linha -->
+          <circle class="k-pt pt-a" cx="18" cy="18" r="7" style="animation-delay:0.00s;"/>
+          <circle class="k-pt pt-a" cx="38" cy="12" r="7" style="animation-delay:0.05s;"/>
+          <circle class="k-pt pt-a" cx="24" cy="40" r="7" style="animation-delay:0.10s;"/>
+          <circle class="k-pt pt-a" cx="46" cy="30" r="7" style="animation-delay:0.15s;"/>
+          <!-- Cluster laranja (centro-baixo) — classificado corretamente abaixo da linha -->
+          <circle class="k-pt pt-b" cx="92"  cy="112" r="7" style="animation-delay:0.20s;"/>
+          <circle class="k-pt pt-b" cx="112" cy="104" r="7" style="animation-delay:0.25s;"/>
+          <circle class="k-pt pt-b" cx="126" cy="118" r="7" style="animation-delay:0.30s;"/>
+          <circle class="k-pt pt-b" cx="100" cy="130" r="7" style="animation-delay:0.35s;"/>
+          <circle class="k-pt pt-b" cx="115" cy="140" r="7" style="animation-delay:0.40s;"/>
+          <!-- Cluster ciano 2 (inferior-direito) — CLASSIFICADO ERRADO (abaixo da linha → laranja) -->
+          <circle class="k-pt pt-a" cx="162" cy="136" r="7" style="animation-delay:0.45s;"/>
+          <circle class="k-pt pt-a" cx="180" cy="126" r="7" style="animation-delay:0.50s;"/>
+          <circle class="k-pt pt-a" cx="172" cy="158" r="7" style="animation-delay:0.55s;"/>
+          <circle class="k-pt pt-a" cx="188" cy="148" r="7" style="animation-delay:0.60s;"/>
+          <!-- X marks nos 4 pontos cianos do cluster 2 (ignorados pela fronteira linear) -->
+          <g class="k-show" style="animation-delay:1.80s;">
+            <line x1="155" y1="129" x2="169" y2="143" stroke="#ff7a8a" stroke-width="2" stroke-linecap="round"/>
+            <line x1="169" y1="129" x2="155" y2="143" stroke="#ff7a8a" stroke-width="2" stroke-linecap="round"/>
+            <line x1="173" y1="119" x2="187" y2="133" stroke="#ff7a8a" stroke-width="2" stroke-linecap="round"/>
+            <line x1="187" y1="119" x2="173" y2="133" stroke="#ff7a8a" stroke-width="2" stroke-linecap="round"/>
+            <line x1="165" y1="151" x2="179" y2="165" stroke="#ff7a8a" stroke-width="2" stroke-linecap="round"/>
+            <line x1="179" y1="151" x2="165" y2="165" stroke="#ff7a8a" stroke-width="2" stroke-linecap="round"/>
+            <line x1="181" y1="141" x2="195" y2="155" stroke="#ff7a8a" stroke-width="2" stroke-linecap="round"/>
+            <line x1="195" y1="141" x2="181" y2="155" stroke="#ff7a8a" stroke-width="2" stroke-linecap="round"/>
+          </g>
         </svg>
         <h3 style="color: var(--gold); font-size: 26px;">Underfitting</h3>
-        <p style="font-size: 19px;">Borra fronteiras — vira voto majoritário global.</p>
+        <p style="font-size: 19px;">Fronteira linear ignora clusters — como regressão num dado não-linear.</p>
       </div>
+
     </div>
 
     <div style="flex: 1;"></div>
@@ -3091,6 +3190,37 @@
       if (pageSpan && /\d+\s*\/\s*\d+/.test(pageSpan.textContent)) {
         pageSpan.textContent = String(i + 1).padStart(2, '0') + ' / ' + total;
       }
+    });
+  })();
+</script>
+
+<script>
+  // Slide 17 — K-chart animations: play on enter, restart every 5 s.
+  (function () {
+    var RESTART_MS = 5000;
+    var kTimer = null;
+
+    function restartKAnims() {
+      var stage = document.querySelector('deck-stage');
+      if (!stage) return;
+      var active = stage.querySelector(':scope > section[data-deck-active]');
+      if (!active) return;
+      var root = active.querySelector('.k-anim-root');
+      if (!root) return;
+      root.classList.remove('k-active');
+      void root.offsetWidth;
+      root.classList.add('k-active');
+    }
+
+    var stage = document.querySelector('deck-stage');
+    if (!stage) return;
+
+    stage.addEventListener('slidechange', function () {
+      if (kTimer) { clearInterval(kTimer); kTimer = null; }
+      var active = stage.querySelector(':scope > section[data-deck-active]');
+      if (!active || !active.querySelector('.k-anim-root')) return;
+      restartKAnims();
+      kTimer = setInterval(restartKAnims, RESTART_MS);
     });
   })();
 </script>
