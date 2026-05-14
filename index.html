@@ -1532,7 +1532,7 @@
       </div>
       <div class="card" data-anim="fade-up" data-delay="5" style="flex: 1;">
         <div class="num">04</div>
-        <h3>Decide otimizações</h3>
+        <h3>Opções de otimizações</h3>
         <p>KD-Tree, Ball Tree, LSH — só justificam o esforço se entendermos o gargalo.</p>
       </div>
     </div>
@@ -2307,32 +2307,32 @@
         </div>
 
         <div data-anim="fade-up" data-delay="2" style="display: flex; flex-direction: column; gap: 14px;">
-          <div style="padding: 22px 26px; border-left: 2px solid var(--violet); background: var(--surface); border-radius: 0 6px 6px 0;">
-            <div style="font-family: var(--font-mono); font-size: 14px; color: var(--violet); letter-spacing: 0.18em; text-transform: uppercase; margin-bottom: 6px;">O paradigma</div>
-            <div style="font-size: 26px; line-height: 1.5; color: var(--text-dim);">Em vez de buscar o vizinho <em>exato</em>, busca vizinhos <strong style="color: var(--text);">"prováveis"</strong> de forma extremamente rápida.</div>
+          <div style="padding: 30px 32px; border-left: 2px solid var(--violet); background: var(--surface); border-radius: 0 6px 6px 0;">
+            <div style="font-family: var(--font-mono); font-size: 18px; color: var(--violet); letter-spacing: 0.18em; text-transform: uppercase; margin-bottom: 6px;">O paradigma</div>
+            <div style="font-size: 30px; line-height: 1.5; color: var(--text-dim);">Em vez de buscar o vizinho <em>exato</em>, busca vizinhos <strong style="color: var(--text);">"prováveis"</strong> de forma extremamente rápida.</div>
           </div>
-          <div style="padding: 22px 26px; border-left: 2px solid var(--violet); background: var(--surface); border-radius: 0 6px 6px 0;">
-            <div style="font-family: var(--font-mono); font-size: 14px; color: var(--violet); letter-spacing: 0.18em; text-transform: uppercase; margin-bottom: 6px;">Como funciona</div>
-            <div style="font-size: 26px; line-height: 1.5; color: var(--text-dim);">Funções de hash especiais <strong style="color: var(--text);">forçam colisões</strong> entre pontos próximos — pontos próximos caem no mesmo "balde".</div>
+          <div style="padding: 30px 32px; border-left: 2px solid var(--violet); background: var(--surface); border-radius: 0 6px 6px 0;">
+            <div style="font-family: var(--font-mono); font-size: 18px; color: var(--violet); letter-spacing: 0.18em; text-transform: uppercase; margin-bottom: 6px;">Como funciona</div>
+            <div style="font-size: 30px; line-height: 1.5; color: var(--text-dim);">Funções de hash especiais <strong style="color: var(--text);">forçam colisões</strong> entre pontos próximos — pontos próximos caem no mesmo "balde".</div>
           </div>
-          <div style="padding: 22px 26px; border-left: 2px solid var(--cyan); background: var(--surface); border-radius: 0 6px 6px 0;">
-            <div style="font-family: var(--font-mono); font-size: 14px; color: var(--cyan); letter-spacing: 0.18em; text-transform: uppercase; margin-bottom: 6px;">Ideal para</div>
-            <div style="font-size: 26px; line-height: 1.5; color: var(--text-dim);">Datasets massivos e <strong style="color: var(--text);">recomendação em tempo real</strong>, onde pequena perda de precisão é aceitável.</div>
+          <div style="padding: 30px 32px; border-left: 2px solid var(--cyan); background: var(--surface); border-radius: 0 6px 6px 0;">
+            <div style="font-family: var(--font-mono); font-size: 18px; color: var(--cyan); letter-spacing: 0.18em; text-transform: uppercase; margin-bottom: 6px;">Ideal para</div>
+            <div style="font-size: 30px; line-height: 1.5; color: var(--text-dim);">Datasets massivos e <strong style="color: var(--text);">recomendação em tempo real</strong>, onde pequena perda de precisão é aceitável.</div>
           </div>
         </div>
 
         <div data-anim="fade-up" data-delay="3" style="display: flex; gap: 14px;">
-          <div style="text-align: center; flex: 1; padding: 16px; border: 1px solid var(--border); border-radius: 8px; background: var(--surface);">
-            <div class="mono" style="color: var(--violet); font-size: 36px;">O(1)</div>
-            <div style="font-size: 16px; color: var(--text-muted); margin-top: 6px;">busca aprox.</div>
+          <div style="text-align: center; flex: 1; padding: 22px; border: 1px solid var(--border); border-radius: 8px; background: var(--surface);">
+            <div class="mono" style="color: var(--violet); font-size: 44px;">O(1)</div>
+            <div style="font-size: 20px; color: var(--text-muted); margin-top: 6px;">busca aprox.</div>
           </div>
-          <div style="text-align: center; flex: 1; padding: 16px; border: 1px solid var(--border); border-radius: 8px; background: var(--surface);">
-            <div class="mono" style="color: var(--violet); font-size: 36px;">≈ 95%</div>
-            <div style="font-size: 16px; color: var(--text-muted); margin-top: 6px;">precisão típica</div>
+          <div style="text-align: center; flex: 1; padding: 22px; border: 1px solid var(--border); border-radius: 8px; background: var(--surface);">
+            <div class="mono" style="color: var(--violet); font-size: 44px;">≈ 95%</div>
+            <div style="font-size: 20px; color: var(--text-muted); margin-top: 6px;">precisão típica</div>
           </div>
-          <div style="text-align: center; flex: 1; padding: 16px; border: 1px solid var(--border); border-radius: 8px; background: var(--surface);">
-            <div class="mono" style="color: var(--gold); font-size: 36px;">bilhões</div>
-            <div style="font-size: 16px; color: var(--text-muted); margin-top: 6px;">pontos em prod.</div>
+          <div style="text-align: center; flex: 1; padding: 22px; border: 1px solid var(--border); border-radius: 8px; background: var(--surface);">
+            <div class="mono" style="color: var(--gold); font-size: 44px;">bilhões</div>
+            <div style="font-size: 20px; color: var(--text-muted); margin-top: 6px;">pontos em prod.</div>
           </div>
         </div>
       </div>
@@ -2538,46 +2538,46 @@
     <div class="eyebrow" data-anim="fade-up" data-delay="0">Quando o K-NN falha</div>
     <h1 class="slide-title" data-anim="fade-up" data-delay="1">As <span class="accent">Desvantagens</span>.</h1>
 
-    <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; margin-top: 48px;">
-      <div data-anim="fade-up" data-delay="2" class="card" style="padding: 22px;">
+    <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; margin-top: 48px;">
+      <div data-anim="fade-up" data-delay="2" class="card" style="padding: 30px;">
         <div class="num" style="color: var(--red);">01</div>
-        <h3 style="font-size: 23px;">Predição cara</h3>
-        <p style="font-size: 18px;">O(n·d) por consulta — gargalo em escala.</p>
+        <h3 style="font-size: 29px;">Predição cara</h3>
+        <p style="font-size: 22px;">O(n·d) por consulta — gargalo em escala.</p>
       </div>
-      <div data-anim="fade-up" data-delay="2" class="card" style="padding: 22px;">
+      <div data-anim="fade-up" data-delay="2" class="card" style="padding: 30px;">
         <div class="num" style="color: var(--red);">02</div>
-        <h3 style="font-size: 23px;">Alto uso de memória</h3>
-        <p style="font-size: 18px;">Guarda o dataset inteiro em RAM.</p>
+        <h3 style="font-size: 29px;">Alto uso de memória</h3>
+        <p style="font-size: 22px;">Guarda o dataset inteiro em RAM.</p>
       </div>
-      <div data-anim="fade-up" data-delay="3" class="card" style="padding: 22px;">
+      <div data-anim="fade-up" data-delay="3" class="card" style="padding: 30px;">
         <div class="num" style="color: var(--red);">03</div>
-        <h3 style="font-size: 23px;">Sensível a ruído</h3>
-        <p style="font-size: 18px;">Erros nos rótulos contaminam vizinhanças.</p>
+        <h3 style="font-size: 29px;">Sensível a ruído</h3>
+        <p style="font-size: 22px;">Erros nos rótulos contaminam vizinhanças.</p>
       </div>
-      <div data-anim="fade-up" data-delay="3" class="card" style="padding: 22px;">
+      <div data-anim="fade-up" data-delay="3" class="card" style="padding: 30px;">
         <div class="num" style="color: var(--red);">04</div>
-        <h3 style="font-size: 23px;">Sensível a outliers</h3>
-        <p style="font-size: 18px;">Pontos fora da curva distorcem a decisão.</p>
+        <h3 style="font-size: 29px;">Sensível a outliers</h3>
+        <p style="font-size: 22px;">Pontos fora da curva distorcem a decisão.</p>
       </div>
-      <div data-anim="fade-up" data-delay="4" class="card" style="padding: 22px;">
+      <div data-anim="fade-up" data-delay="4" class="card" style="padding: 30px;">
         <div class="num" style="color: var(--red);">05</div>
-        <h3 style="font-size: 23px;">Depende da escala</h3>
-        <p style="font-size: 18px;">Atributos com magnitudes diferentes desbalanceiam.</p>
+        <h3 style="font-size: 29px;">Depende da escala</h3>
+        <p style="font-size: 22px;">Atributos com magnitudes diferentes desbalanceiam.</p>
       </div>
-      <div data-anim="fade-up" data-delay="4" class="card" style="padding: 22px;">
+      <div data-anim="fade-up" data-delay="4" class="card" style="padding: 30px;">
         <div class="num" style="color: var(--red);">06</div>
-        <h3 style="font-size: 23px;">Depende da métrica</h3>
-        <p style="font-size: 18px;">Escolha errada → resultados ruins.</p>
+        <h3 style="font-size: 29px;">Depende da métrica</h3>
+        <p style="font-size: 22px;">Escolha errada → resultados ruins.</p>
       </div>
-      <div data-anim="fade-up" data-delay="5" class="card" style="padding: 22px; border-color: rgba(255,122,138,0.3);">
+      <div data-anim="fade-up" data-delay="5" class="card" style="padding: 30px; border-color: rgba(255,122,138,0.3);">
         <div class="num" style="color: var(--red);">07</div>
-        <h3 style="font-size: 23px;">Maldição da dimensionalidade</h3>
-        <p style="font-size: 18px;">Em d grande, distâncias se equiparam.</p>
+        <h3 style="font-size: 29px;">Maldição da dimensionalidade</h3>
+        <p style="font-size: 22px;">Em d grande, distâncias se equiparam.</p>
       </div>
-      <div data-anim="fade-up" data-delay="5" class="card" style="padding: 22px;">
+      <div data-anim="fade-up" data-delay="5" class="card" style="padding: 30px;">
         <div class="num" style="color: var(--red);">08</div>
-        <h3 style="font-size: 23px;">Bases gigantes</h3>
-        <p style="font-size: 18px;">Não escala sem KD-Tree, Ball Tree ou LSH.</p>
+        <h3 style="font-size: 29px;">Bases gigantes</h3>
+        <p style="font-size: 22px;">Não escala sem KD-Tree, Ball Tree ou LSH.</p>
       </div>
     </div>
     <div class="slide-footer"><span>Onde dói</span><span>30 / 34</span></div>
@@ -2939,46 +2939,46 @@
     <div class="eyebrow" data-anim="fade-up" data-delay="0">Por que o K-NN funciona</div>
     <h1 class="slide-title" data-anim="fade-up" data-delay="1">As <span class="accent">Vantagens</span>.</h1>
 
-    <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; margin-top: 48px;">
-      <div data-anim="fade-up" data-delay="2" class="card" style="padding: 22px;">
+    <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; margin-top: 48px;">
+      <div data-anim="fade-up" data-delay="2" class="card" style="padding: 30px;">
         <div class="num" style="color: var(--green);">01</div>
-        <h3 style="font-size: 23px;">Simples de implementar</h3>
-        <p style="font-size: 18px;">Lógica intuitiva: dados próximos tendem à mesma classe. Ótimo ponto de entrada no Machine Learning.</p>
+        <h3 style="font-size: 29px;">Simples de implementar</h3>
+        <p style="font-size: 22px;">Lógica intuitiva: dados próximos tendem à mesma classe. Ótimo ponto de entrada no Machine Learning.</p>
       </div>
-      <div data-anim="fade-up" data-delay="2" class="card" style="padding: 22px;">
+      <div data-anim="fade-up" data-delay="2" class="card" style="padding: 30px;">
         <div class="num" style="color: var(--green);">02</div>
-        <h3 style="font-size: 23px;">Sem treinamento complexo</h3>
-        <p style="font-size: 18px;">Armazena dados e calcula distâncias só na predição. Novos exemplos entram sem retreinar.</p>
+        <h3 style="font-size: 29px;">Sem treinamento complexo</h3>
+        <p style="font-size: 22px;">Armazena dados e calcula distâncias só na predição. Novos exemplos entram sem retreinar.</p>
       </div>
-      <div data-anim="fade-up" data-delay="3" class="card" style="padding: 22px;">
+      <div data-anim="fade-up" data-delay="3" class="card" style="padding: 30px;">
         <div class="num" style="color: var(--green);">03</div>
-        <h3 style="font-size: 23px;">Boa precisão em escalas médias</h3>
-        <p style="font-size: 18px;">Padrões, imagens, recomendações — excelentes resultados com dados bem organizados.</p>
+        <h3 style="font-size: 29px;">Boa precisão em escalas médias</h3>
+        <p style="font-size: 22px;">Padrões, imagens, recomendações — excelentes resultados com dados bem organizados.</p>
       </div>
-      <div data-anim="fade-up" data-delay="3" class="card" style="padding: 22px;">
+      <div data-anim="fade-up" data-delay="3" class="card" style="padding: 30px;">
         <div class="num" style="color: var(--green);">04</div>
-        <h3 style="font-size: 23px;">Classificação e regressão</h3>
-        <p style="font-size: 18px;">Categoriza ou estima valores numéricos com o mesmo algoritmo, sem modificações.</p>
+        <h3 style="font-size: 29px;">Classificação e regressão</h3>
+        <p style="font-size: 22px;">Categoriza ou estima valores numéricos com o mesmo algoritmo, sem modificações.</p>
       </div>
-      <div data-anim="fade-up" data-delay="4" class="card" style="padding: 22px;">
+      <div data-anim="fade-up" data-delay="4" class="card" style="padding: 30px;">
         <div class="num" style="color: var(--green);">05</div>
-        <h3 style="font-size: 23px;">Base fácil de atualizar</h3>
-        <p style="font-size: 18px;">Novos dados entram sem reconstruir o modelo — ideal para apps, lojas e plataformas de streaming.</p>
+        <h3 style="font-size: 29px;">Base fácil de atualizar</h3>
+        <p style="font-size: 22px;">Novos dados entram sem reconstruir o modelo — ideal para apps, lojas e plataformas de streaming.</p>
       </div>
-      <div data-anim="fade-up" data-delay="4" class="card" style="padding: 22px;">
+      <div data-anim="fade-up" data-delay="4" class="card" style="padding: 30px;">
         <div class="num" style="color: var(--green);">06</div>
-        <h3 style="font-size: 23px;">Não paramétrico</h3>
-        <p style="font-size: 18px;">Sem suposições sobre distribuição dos dados. Não exige normalidade nem relações lineares.</p>
+        <h3 style="font-size: 29px;">Não paramétrico</h3>
+        <p style="font-size: 22px;">Sem suposições sobre distribuição dos dados. Não exige normalidade nem relações lineares.</p>
       </div>
-      <div data-anim="fade-up" data-delay="5" class="card" style="padding: 22px; border-color: rgba(124,224,168,0.3);">
+      <div data-anim="fade-up" data-delay="5" class="card" style="padding: 30px; border-color: rgba(124,224,168,0.3);">
         <div class="num" style="color: var(--green);">07</div>
-        <h3 style="font-size: 23px;">Reconhecimento de similaridade</h3>
-        <p style="font-size: 18px;">Recomendação de filmes, reconhecimento facial e detecção de padrões — terreno natural do K-NN.</p>
+        <h3 style="font-size: 29px;">Reconhecimento de similaridade</h3>
+        <p style="font-size: 22px;">Recomendação de filmes, reconhecimento facial e detecção de padrões — terreno natural do K-NN.</p>
       </div>
-      <div data-anim="fade-up" data-delay="5" class="card" style="padding: 22px;">
+      <div data-anim="fade-up" data-delay="5" class="card" style="padding: 30px;">
         <div class="num" style="color: var(--green);">08</div>
-        <h3 style="font-size: 23px;">Resultados interpretáveis</h3>
-        <p style="font-size: 18px;">Decisão justificável pelos vizinhos próximos — fácil de explicar e analisar.</p>
+        <h3 style="font-size: 29px;">Resultados interpretáveis</h3>
+        <p style="font-size: 22px;">Decisão justificável pelos vizinhos próximos — fácil de explicar e analisar.</p>
       </div>
     </div>
     <div class="slide-footer"><span>Por que usar</span><span>35 / 38</span></div>
