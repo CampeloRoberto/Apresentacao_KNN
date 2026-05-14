@@ -1639,22 +1639,22 @@
         <div data-anim="fade-up" data-delay="2" style="display: flex; align-items: center; gap: 26px; padding: 26px 30px; border-left: 2px solid var(--cyan); background: var(--surface); margin-bottom: 20px;">
           <div class="mono" style="color: var(--cyan); font-size: 32px;">n</div>
           <div>
-            <div class="display" style="font-size: 26px;">Para cada ponto de treino…</div>
-            <div style="color: var(--text-dim); font-size: 19px;">calculamos a distância até o ponto de consulta.</div>
+            <div class="display" style="font-size: 35px;">Para cada ponto de treino…</div>
+            <div style="color: var(--text-dim); font-size: 24px;">calculamos a distância até o ponto de consulta.</div>
           </div>
         </div>
         <div data-anim="fade-up" data-delay="3" style="display: flex; align-items: center; gap: 26px; padding: 26px 30px; border-left: 2px solid var(--cyan); background: var(--surface); margin-bottom: 20px;">
           <div class="mono" style="color: var(--cyan); font-size: 32px;">d</div>
           <div>
-            <div class="display" style="font-size: 26px;">…cada distância olha d atributos.</div>
-            <div style="color: var(--text-dim); font-size: 19px;">Quantidade de dimensões</div>
+            <div class="display" style="font-size: 35px;">…cada distância olha d atributos.</div>
+            <div style="color: var(--text-dim); font-size: 24px;">Quantidade de dimensões</div>
           </div>
         </div>
         <div data-anim="fade-up" data-delay="4" style="display: flex; align-items: center; gap: 26px; padding: 26px 30px; border-left: 2px solid var(--cyan); background: linear-gradient(90deg, rgba(92,225,255,0.06), transparent 60%);">
           <div class="mono" style="color: var(--cyan); font-size: 32px;">×</div>
           <div>
-            <div class="display" style="font-size: 26px;">Logo: <span style="color: var(--cyan);">n · d</span> operações.</div>
-            <div style="color: var(--text-dim); font-size: 19px;">Apenas para calcular as distâncias.</div>
+            <div class="display" style="font-size: 35px;">Logo: <span style="color: var(--cyan);">n · d</span> operações.</div>
+            <div style="color: var(--text-dim); font-size: 24px;">Apenas para calcular as distâncias.</div>
           </div>
         </div>
       </div>
@@ -1682,21 +1682,21 @@
 
     <div class="row" style="gap: 32px; margin-top: 50px; flex: 1;">
       <div class="card" data-anim="fade-up" data-delay="2" style="flex: 1; padding: 34px;">
-        <div class="num" style="font-size: 15px;">ESTRATÉGIA A</div>
+        <div class="num" style="font-size: 30px;">ESTRATÉGIA A</div>
         <h3 style="font-size: 30px;">Ordenar tudo</h3>
         <p style="margin-bottom: 22px; font-size: 19px;">Ordena todas as n distâncias e pega os K primeiros.</p>
         <div class="display" style="font-size: 64px; color: var(--gold);">O(n log n)</div>
         <div class="mono" style="font-size: 15px; color: var(--text-muted); margin-top: 12px; letter-spacing: 0.15em;">SIMPLES · MAIS CARO</div>
       </div>
       <div class="card" data-anim="fade-up" data-delay="3" style="flex: 1; padding: 34px; border-color: var(--cyan);">
-        <div class="num" style="font-size: 15px;">ESTRATÉGIA B</div>
+        <div class="num" style="font-size: 30px;">ESTRATÉGIA B</div>
         <h3 style="color: var(--cyan); font-size: 30px;">Heap de tamanho K</h3>
         <p style="margin-bottom: 22px; font-size: 19px;">Mantém apenas os K menores em uma max-heap.</p>
         <div class="display" style="font-size: 64px; color: var(--cyan);">O(n log k)</div>
         <div class="mono" style="font-size: 15px; color: var(--text-muted); margin-top: 12px; letter-spacing: 0.15em;">ÓTIMO QUANDO K &lt;&lt; N</div>
       </div>
       <div class="card" data-anim="fade-up" data-delay="4" style="flex: 1; padding: 34px;">
-        <div class="num" style="font-size: 15px;">VOTAÇÃO</div>
+        <div class="num" style="font-size: 30px;">VOTAÇÃO</div>
         <h3 style="font-size: 30px;">Classe majoritária</h3>
         <p style="margin-bottom: 22px; font-size: 19px;">Contagem das classes entre os K vizinhos selecionados.</p>
         <div class="display" style="font-size: 64px; color: var(--green);">O(k)</div>
@@ -1729,8 +1729,8 @@
         <div class="display" style="font-size: 84px; color: var(--cyan); letter-spacing: -0.02em; line-height: 1.05;">
           O(n·d + n log k)
         </div>
-        <p style="margin-top: 6px; color: var(--text-dim); font-size: 22px; line-height: 1.5;">Estratégia recomendada para K pequeno e n grande — caso comum em produção.</p>
-        <ul style="padding: 0 0 0 20px; color: var(--text-muted); font-size: 19px; line-height: 1.85; margin-top: 8px;">
+        <p style="margin-top: 6px; color: var(--text-dim); font-size: 35px; line-height: 1.5;">Estratégia recomendada para K pequeno e n grande — caso comum em produção.</p>
+        <ul style="padding: 0 0 0 20px; color: var(--text-muted); font-size: 30px; line-height: 1.85; margin-top: 8px;">
           <li>n·d domina em alta dimensionalidade.</li>
           <li>log k é praticamente constante.</li>
         </ul>
@@ -1741,8 +1741,8 @@
         <div class="display" style="font-size: 84px; color: var(--gold); letter-spacing: -0.02em; line-height: 1.05;">
           O(n·d + n log n)
         </div>
-        <p style="margin-top: 6px; color: var(--text-dim); font-size: 22px; line-height: 1.5;">Implementação ingênua: ordena todas as distâncias antes de pegar as K menores.</p>
-        <ul style="padding: 0 0 0 20px; color: var(--text-muted); font-size: 19px; line-height: 1.85; margin-top: 8px;">
+        <p style="margin-top: 6px; color: var(--text-dim); font-size: 35px; line-height: 1.5;">Implementação ingênua: ordena todas as distâncias antes de pegar as K menores.</p>
+        <ul style="padding: 0 0 0 20px; color: var(--text-muted); font-size: 30px; line-height: 1.85; margin-top: 8px;">
           <li>Mais simples de escrever.</li>
           <li>Pior assintótica quando k é pequeno.</li>
         </ul>
@@ -1750,7 +1750,7 @@
     </div>
 
     <div data-anim="fade-up" data-delay="4" style="margin-top: 36px; padding: 24px 30px; border-left: 3px solid var(--cyan); background: linear-gradient(90deg, rgba(92,225,255,0.06), transparent 60%); border-radius: 6px;">
-      <p class="lede" style="margin: 0; font-size: 22px;">
+      <p class="lede" style="margin: 0; font-size: 25px;">
         Em busca exaustiva, o termo dominante é quase sempre <span class="mono" style="color: var(--cyan);">n·d</span> — todos os pontos precisam ser visitados.
       </p>
     </div>
