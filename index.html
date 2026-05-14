@@ -800,7 +800,7 @@
     <div class="topbar"><div class="left"><span class="dot"></span><span>11 · Algoritmo</span></div><div class="right">Parte 2 · Fundamentação</div></div>
 
     <div class="eyebrow" data-anim="fade-up" data-delay="0" style="font-size: 22px;">Passo a passo</div>
-    <h1 class="slide-title" data-anim="fade-up" data-delay="1">Sete passos. Uma classificação.</h1>
+    <h1 class="slide-title" data-anim="fade-up" data-delay="1">Funcionamento do Algoritimo.</h1>
 
     <div class="row" style="gap: 56px; margin-top: 32px; flex: 1;">
       <div style="flex: 1.1;" data-anim="fade" data-delay="2">
@@ -1082,15 +1082,14 @@
             <div class="mono" style="color: var(--cyan); font-size: 14px; letter-spacing: 0.18em;">05 · DECISÃO</div>
             <div class="display" style="font-size: 24px; margin-top: 6px;">Votação (classif.) · média (regr.)</div>
           </div>
-          <div style="font-family: var(--font-mono); color: var(--cyan); font-size: 22px;">↓</div>
-          <div style="width: 88%; padding: 20px 26px; border: 1px solid var(--cyan); border-radius: 8px; background: linear-gradient(90deg, rgba(92,225,255,0.1), transparent); text-align: center;">
-            <div class="mono" style="color: var(--cyan); font-size: 14px; letter-spacing: 0.18em;">06 · SAÍDA</div>
-            <div class="display" style="font-size: 24px; margin-top: 6px; color: var(--cyan);">Classe / valor final</div>
-          </div>
         </div>
       </div>
 
       <div style="flex: 1; align-self: stretch; display: flex; flex-direction: column;" data-anim="fade-up" data-delay="3">
+        <div style="width: 100%; padding: 20px 26px; border: 1px solid var(--cyan); border-radius: 8px; background: linear-gradient(90deg, rgba(92,225,255,0.1), transparent); text-align: center; margin-bottom: 20px;">
+          <div class="mono" style="color: var(--cyan); font-size: 14px; letter-spacing: 0.18em;">06 · SAÍDA</div>
+          <div class="display" style="font-size: 24px; margin-top: 6px; color: var(--cyan);">Classe / valor final</div>
+        </div>
         <div class="mono" style="font-size: 14px; color: var(--text-muted); letter-spacing: 0.2em; margin-bottom: 12px;">PSEUDOCÓDIGO</div>
         <pre class="code" style="font-size: 16px;"><span class="kw">function</span> <span class="fn">knn_predict</span>(X_train, y_train, x, k, dist):
     distances = []
