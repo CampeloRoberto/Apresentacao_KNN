@@ -287,13 +287,15 @@
             <text x="320" y="265" text-anchor="middle" font-family="Space Grotesk" font-size="18" font-weight="600" fill="#fff">?</text>
           </g>
 
-          <!-- Lines to 5 nearest — staggered via CSS .knn-lines -->
+          <!-- Lines to 7 nearest — staggered via CSS .knn-lines -->
           <g class="knn-lines" stroke="#5ce1ff" stroke-width="1.5" stroke-dasharray="4 4">
             <line x1="320" y1="280" x2="280" y2="280"></line>
             <line x1="320" y1="280" x2="380" y2="240"></line>
             <line x1="320" y1="280" x2="310" y2="180"></line>
             <line x1="320" y1="280" x2="240" y2="200"></line>
             <line x1="320" y1="280" x2="350" y2="390"></line>
+            <line x1="320" y1="280" x2="200" y2="260"></line>
+            <line x1="320" y1="280" x2="420" y2="380"></line>
           </g>
 
           <!-- Legend -->
@@ -303,7 +305,7 @@
             <circle cx="170" cy="510" r="6" class="pt-b"></circle>
             <text x="182" y="515">Classe B</text>
             <circle cx="280" cy="510" r="6" class="pt-q"></circle>
-            <text x="292" y="515">Consulta · k=5</text>
+            <text x="292" y="515">Consulta · k=7</text>
           </g>
         </svg>
       </div>
@@ -3200,6 +3202,35 @@
       if (pageSpan && /\d+\s*\/\s*\d+/.test(pageSpan.textContent)) {
         pageSpan.textContent = String(i + 1).padStart(2, '0') + ' / ' + total;
       }
+    });
+  })();
+</script>
+
+<script>
+  // Slide 4 — KNN scatter: play on enter, restart every 5 s.
+  (function () {
+    var RESTART_MS = 5000;
+    var knnTimer = null;
+
+    function restartKNN() {
+      var stage = document.querySelector('deck-stage');
+      if (!stage) return;
+      var active = stage.querySelector(':scope > section[data-deck-active]');
+      if (!active || !active.querySelector('.knn-lines')) return;
+      active.classList.remove('knn-run');
+      void active.offsetWidth; // section is HTML — reflow garantido
+      active.classList.add('knn-run');
+    }
+
+    var stage = document.querySelector('deck-stage');
+    if (!stage) return;
+
+    stage.addEventListener('slidechange', function () {
+      if (knnTimer) { clearInterval(knnTimer); knnTimer = null; }
+      var active = stage.querySelector(':scope > section[data-deck-active]');
+      if (!active || !active.querySelector('.knn-lines')) return;
+      restartKNN();
+      knnTimer = setInterval(restartKNN, RESTART_MS);
     });
   })();
 </script>

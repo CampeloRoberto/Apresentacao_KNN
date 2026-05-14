@@ -569,14 +569,16 @@
 
   /* Slide 4 — KNN scatter plot */
   .knn-lines line { opacity: 0; }
-  deck-stage > section[data-deck-active] .knn-lines line {
+  deck-stage > section[data-deck-active].knn-run .knn-lines line {
     animation: knnFade 0.45s ease forwards;
   }
-  deck-stage > section[data-deck-active] .knn-lines line:nth-child(1) { animation-delay: 0.58s; }
-  deck-stage > section[data-deck-active] .knn-lines line:nth-child(2) { animation-delay: 0.70s; }
-  deck-stage > section[data-deck-active] .knn-lines line:nth-child(3) { animation-delay: 0.82s; }
-  deck-stage > section[data-deck-active] .knn-lines line:nth-child(4) { animation-delay: 0.94s; }
-  deck-stage > section[data-deck-active] .knn-lines line:nth-child(5) { animation-delay: 1.06s; }
+  deck-stage > section[data-deck-active].knn-run .knn-lines line:nth-child(1) { animation-delay: 0.58s; }
+  deck-stage > section[data-deck-active].knn-run .knn-lines line:nth-child(2) { animation-delay: 0.70s; }
+  deck-stage > section[data-deck-active].knn-run .knn-lines line:nth-child(3) { animation-delay: 0.82s; }
+  deck-stage > section[data-deck-active].knn-run .knn-lines line:nth-child(4) { animation-delay: 0.94s; }
+  deck-stage > section[data-deck-active].knn-run .knn-lines line:nth-child(5) { animation-delay: 1.06s; }
+  deck-stage > section[data-deck-active].knn-run .knn-lines line:nth-child(6) { animation-delay: 1.18s; }
+  deck-stage > section[data-deck-active].knn-run .knn-lines line:nth-child(7) { animation-delay: 1.30s; }
   @keyframes knnFade { from { opacity: 0; } to { opacity: 0.7; } }
 
   /* Slide 3 — timeline line draw */
