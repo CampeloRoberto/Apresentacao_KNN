@@ -2409,7 +2409,7 @@
   }());
   </script>
 
-  <div class="slide" style="justify-content: center; align-items: center; text-align: center; position: relative; z-index: 1;">
+  <div class="slide" style="justify-content: center; align-items: center; text-align: center;">
     <h1 data-anim="fade-up" data-delay="0" style="font-size: clamp(100px, 16vw, 200px); font-weight: 900; line-height: 1; letter-spacing: -0.03em; margin: 0; padding-bottom: 0.18em; background: linear-gradient(135deg, var(--cyan) 0%, #fff 60%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">
       Demonstração<span style="-webkit-text-fill-color: var(--accent);">.</span>
     </h1>
@@ -2650,6 +2650,13 @@
 
     // Phase 9 — summary
     after(t, function () { summaryEl.style.opacity = '1'; });
+
+    // Loop — reinicia após 5 s de pausa
+    after(t + 5000, function () {
+      if (targetSection && targetSection.hasAttribute('data-deck-active')) {
+        runCleanAnim();
+      }
+    });
   }
 
   // Referência direta ao section — robusta contra reescrita do data-screen-label pelo deck-stage
