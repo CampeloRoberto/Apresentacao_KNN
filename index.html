@@ -2326,8 +2326,91 @@
 <!-- SLIDE — DEMONSTRAÇÃO (capa da parte 4) -->
 <section data-screen-label="Demonstracao">
   <div class="slide-chrome"></div>
-  <div class="slide" style="justify-content: center; align-items: center; text-align: center;">
-    <h1 data-anim="fade-up" data-delay="0" style="font-size: clamp(100px, 16vw, 200px); font-weight: 900; line-height: 1; letter-spacing: -0.03em; margin: 0; background: linear-gradient(135deg, var(--cyan) 0%, #fff 60%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">
+
+  <!-- Engrenagens decorativas -->
+  <svg id="sl-demo-gears" viewBox="0 0 1920 1080" preserveAspectRatio="xMidYMid slice" style="position:absolute;inset:0;width:100%;height:100%;z-index:0;pointer-events:none;" aria-hidden="true">
+    <!-- G1: grande, canto inferior-esquerdo -->
+    <g transform="translate(80,920)">
+      <g class="sl-demo-g1" style="transform-box:fill-box;transform-origin:center;">
+        <path id="sl-demo-g1p" fill="rgba(92,225,255,0.07)" stroke="rgba(92,225,255,0.22)" stroke-width="2"/>
+        <circle r="34" fill="none" stroke="rgba(92,225,255,0.22)" stroke-width="1.5"/>
+        <circle r="12" fill="rgba(92,225,255,0.22)"/>
+      </g>
+    </g>
+    <!-- G2: média, engrenando com G1 -->
+    <g transform="translate(281,920)">
+      <g class="sl-demo-g2" style="transform-box:fill-box;transform-origin:center;">
+        <path id="sl-demo-g2p" fill="rgba(169,139,255,0.07)" stroke="rgba(169,139,255,0.22)" stroke-width="2"/>
+        <circle r="22" fill="none" stroke="rgba(169,139,255,0.22)" stroke-width="1.5"/>
+        <circle r="8" fill="rgba(169,139,255,0.22)"/>
+      </g>
+    </g>
+    <!-- G3: média, canto superior-direito -->
+    <g transform="translate(1820,180)">
+      <g class="sl-demo-g3" style="transform-box:fill-box;transform-origin:center;">
+        <path id="sl-demo-g3p" fill="rgba(230,184,106,0.07)" stroke="rgba(230,184,106,0.22)" stroke-width="2"/>
+        <circle r="20" fill="none" stroke="rgba(230,184,106,0.22)" stroke-width="1.5"/>
+        <circle r="7" fill="rgba(230,184,106,0.22)"/>
+      </g>
+    </g>
+    <!-- G4: pequena, engrenando com G3 -->
+    <g transform="translate(1702,180)">
+      <g class="sl-demo-g4" style="transform-box:fill-box;transform-origin:center;">
+        <path id="sl-demo-g4p" fill="rgba(230,184,106,0.06)" stroke="rgba(230,184,106,0.18)" stroke-width="1.5"/>
+        <circle r="14" fill="none" stroke="rgba(230,184,106,0.18)" stroke-width="1.5"/>
+        <circle r="5" fill="rgba(230,184,106,0.18)"/>
+      </g>
+    </g>
+  </svg>
+
+  <style>
+    @keyframes sl-demo-cw  { to { transform: rotate(360deg);  } }
+    @keyframes sl-demo-ccw { to { transform: rotate(-360deg); } }
+    .sl-demo-g1 { animation: sl-demo-cw  14s   linear infinite; animation-play-state: paused; }
+    .sl-demo-g2 { animation: sl-demo-ccw  9s   linear infinite; animation-play-state: paused; }
+    .sl-demo-g3 { animation: sl-demo-ccw 10s   linear infinite; animation-play-state: paused; }
+    .sl-demo-g4 { animation: sl-demo-cw  13.3s linear infinite; animation-play-state: paused; }
+    section[data-deck-active] .sl-demo-g1,
+    section[data-deck-active] .sl-demo-g2,
+    section[data-deck-active] .sl-demo-g3,
+    section[data-deck-active] .sl-demo-g4 { animation-play-state: running; }
+  </style>
+
+  <script>
+  (function () {
+    function mkGear(n, ro, ri) {
+      var step = (2 * Math.PI) / n;
+      var tw = step * 0.42;
+      var pts = [];
+      for (var i = 0; i < n; i++) {
+        var a = i * step - Math.PI / 2;
+        var v0 = a - step * 0.5 + step * 0.1;
+        pts.push(ri * Math.cos(v0), ri * Math.sin(v0));
+        pts.push(ro * Math.cos(a - tw / 2), ro * Math.sin(a - tw / 2));
+        pts.push(ro * Math.cos(a + tw / 2), ro * Math.sin(a + tw / 2));
+        var v1 = a + step * 0.5 - step * 0.1;
+        pts.push(ri * Math.cos(v1), ri * Math.sin(v1));
+      }
+      var d = 'M';
+      for (var j = 0; j < pts.length; j += 2) {
+        if (j > 0) d += 'L';
+        d += pts[j].toFixed(1) + ',' + pts[j + 1].toFixed(1);
+      }
+      return d + 'Z';
+    }
+    var g1 = document.getElementById('sl-demo-g1p');
+    var g2 = document.getElementById('sl-demo-g2p');
+    var g3 = document.getElementById('sl-demo-g3p');
+    var g4 = document.getElementById('sl-demo-g4p');
+    if (g1) g1.setAttribute('d', mkGear(14, 140, 104));
+    if (g2) g2.setAttribute('d', mkGear(9,   90,  67));
+    if (g3) g3.setAttribute('d', mkGear(8,   80,  60));
+    if (g4) g4.setAttribute('d', mkGear(6,   55,  41));
+  }());
+  </script>
+
+  <div class="slide" style="justify-content: center; align-items: center; text-align: center; position: relative; z-index: 1;">
+    <h1 data-anim="fade-up" data-delay="0" style="font-size: clamp(100px, 16vw, 200px); font-weight: 900; line-height: 1; letter-spacing: -0.03em; margin: 0; padding-bottom: 0.18em; background: linear-gradient(135deg, var(--cyan) 0%, #fff 60%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">
       Demonstração<span style="-webkit-text-fill-color: var(--accent);">.</span>
     </h1>
   </div>
