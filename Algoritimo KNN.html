@@ -813,8 +813,25 @@
           <!-- Glow around query (step 7 result) -->
           <circle class="s11-result-glow" cx="360" cy="300" r="180" fill="url(#qg11)"></circle>
 
-          <!-- Class A points -->
-          <g class="pt-a">
+          <!-- Far lines: all non-K distances shown in step 3 & dimmed in step 4 -->
+          <g stroke="rgba(140,180,255,0.5)" stroke-width="1">
+            <!-- Class A non-K (5 lines) -->
+            <line class="s11-line-far" x1="360" y1="300" x2="140" y2="140"></line>
+            <line class="s11-line-far" x1="360" y1="300" x2="210" y2="100"></line>
+            <line class="s11-line-far" x1="360" y1="300" x2="200" y2="200"></line>
+            <line class="s11-line-far" x1="360" y1="300" x2="280" y2="180"></line>
+            <line class="s11-line-far" x1="360" y1="300" x2="200" y2="380"></line>
+            <!-- Class B non-K (6 lines) -->
+            <line class="s11-line-far" x1="360" y1="300" x2="500" y2="380"></line>
+            <line class="s11-line-far" x1="360" y1="300" x2="540" y2="450"></line>
+            <line class="s11-line-far" x1="360" y1="300" x2="450" y2="430"></line>
+            <line class="s11-line-far" x1="360" y1="300" x2="600" y2="320"></line>
+            <line class="s11-line-far" x1="360" y1="300" x2="540" y2="200"></line>
+            <line class="s11-line-far" x1="360" y1="300" x2="600" y2="450"></line>
+          </g>
+
+          <!-- Class A points (cyan) -->
+          <g class="pt-a s11-pts-a">
             <circle cx="140" cy="140" r="11"></circle>
             <circle cx="210" cy="100" r="11"></circle>
             <circle cx="200" cy="200" r="11"></circle>
@@ -824,8 +841,8 @@
             <circle cx="280" cy="320" r="11"></circle>
             <circle cx="200" cy="380" r="11"></circle>
           </g>
-          <!-- Class B points -->
-          <g class="pt-b">
+          <!-- Class B points (gold) -->
+          <g class="pt-b s11-pts-b">
             <circle cx="500" cy="380" r="11"></circle>
             <circle cx="540" cy="450" r="11"></circle>
             <circle cx="450" cy="430" r="11"></circle>
@@ -836,34 +853,43 @@
             <circle cx="600" cy="450" r="11"></circle>
           </g>
 
-          <!-- Distance lines to 5 nearest (step 3) -->
+          <!-- K-nearest distance lines (step 3 → 5) -->
           <g stroke="#5ce1ff" stroke-width="1.8">
             <line class="s11-dashed-line s11-line-a" x1="360" y1="300" x2="320" y2="250"></line>
-            <line class="s11-dashed-line s11-line-a" x1="360" y1="300" x2="400" y2="220"></line>
             <line class="s11-dashed-line s11-line-a" x1="360" y1="300" x2="280" y2="320"></line>
+            <line class="s11-dashed-line s11-line-a" x1="360" y1="300" x2="400" y2="220"></line>
             <line class="s11-dashed-line s11-line-b" x1="360" y1="300" x2="430" y2="350"></line>
             <line class="s11-dashed-line s11-line-b" x1="360" y1="300" x2="380" y2="430"></line>
           </g>
 
-          <!-- Highlight rings (step 5) -->
-          <g fill="none" stroke="#5ce1ff" stroke-width="2.5">
+          <!-- Highlight rings — K nearest (step 5+) — colors by class via CSS -->
+          <g fill="none" stroke-width="2.5">
             <circle class="s11-ring s11-ring-a" cx="320" cy="250" r="16"></circle>
-            <circle class="s11-ring s11-ring-a" cx="400" cy="220" r="16"></circle>
             <circle class="s11-ring s11-ring-a" cx="280" cy="320" r="16"></circle>
+            <circle class="s11-ring s11-ring-a" cx="400" cy="220" r="16"></circle>
             <circle class="s11-ring s11-ring-b" cx="430" cy="350" r="16"></circle>
             <circle class="s11-ring s11-ring-b" cx="380" cy="430" r="16"></circle>
           </g>
 
-          <!-- Query point (step 2) -->
+          <!-- Sort rank labels — appear in step 4 next to K-nearest lines -->
+          <g font-family="JetBrains Mono" font-size="11" fill="#5ce1ff" font-weight="700">
+            <text class="s11-rank" x="327" y="262">#1</text>
+            <text class="s11-rank" x="300" y="322">#2</text>
+            <text class="s11-rank" x="384" y="248">#4</text>
+            <text class="s11-rank" x="400" y="320" fill="#a98bff">#3</text>
+            <text class="s11-rank" x="354" y="390" fill="#a98bff">#5</text>
+          </g>
+
+          <!-- Query point (step 2+) -->
           <g class="s11-query">
             <circle cx="360" cy="300" r="18" fill="#0a1020" stroke="#fff" stroke-width="2.5"></circle>
             <text x="360" y="307" text-anchor="middle" font-family="Space Grotesk" font-size="22" font-weight="600" fill="#fff">?</text>
           </g>
 
-          <!-- Final classification (step 7) -->
+          <!-- Final classification dot (step 7) -->
           <circle class="s11-result-final" cx="360" cy="300" r="14" fill="#5ce1ff" opacity="0"></circle>
 
-          <!-- Vote panel (step 6) -->
+          <!-- Vote panel (step 6+) -->
           <g class="s11-vote" transform="translate(60, 480)">
             <rect x="0" y="0" width="380" height="52" rx="8" fill="rgba(20,28,48,0.85)" stroke="rgba(140,180,255,0.3)"></rect>
             <text x="18" y="22" font-family="JetBrains Mono" font-size="13" fill="#8b95ab" letter-spacing="2">VOTAÇÃO · K=5</text>
@@ -911,56 +937,106 @@
 </section>
 
 <script>
-  // Slide 11 — animated step-by-step cycle
   (function () {
-    const section = document.querySelector('section[data-screen-label="11 Passo a passo"]');
+    // Use currentScript to find the section directly — avoids fragile
+    // data-screen-label selectors that depend on deck-stage timing.
+    var sc = document.currentScript;
+    var section = sc && sc.previousElementSibling;
+    if (!section || section.tagName !== 'SECTION') {
+      section = document.querySelector('[data-screen-label^="11 "]');
+    }
     if (!section) return;
-    const svg = section.querySelector('#s11-svg');
-    const steps = section.querySelectorAll('.step-item');
-    let timer = null;
-    let current = 0;
+
+    var svg   = section.querySelector('#s11-svg');
+    var steps = section.querySelectorAll('.step-item');
+    if (!svg || !steps.length) return;
+
+    // Cache all SVG targets once
+    var nearLines = svg.querySelectorAll('.s11-dashed-line');
+    var farLines  = svg.querySelectorAll('.s11-line-far');
+    var rings     = svg.querySelectorAll('.s11-ring');
+    var ringsA    = svg.querySelectorAll('.s11-ring-a');
+    var ringsB    = svg.querySelectorAll('.s11-ring-b');
+    var ranks     = svg.querySelectorAll('.s11-rank');
+    var query     = svg.querySelector('.s11-query');
+    var vote      = svg.querySelector('.s11-vote');
+    var glow      = svg.querySelector('.s11-result-glow');
+    var finalDot  = svg.querySelector('.s11-result-final');
+    var ptsA      = svg.querySelector('.s11-pts-a');
+    var ptsB      = svg.querySelector('.s11-pts-b');
+
+    var timer = null;
+    var current = 0;
+
+    function cls(el, name, on) { if (el) el.classList.toggle(name, on); }
+    function clsAll(list, name, on) { list.forEach(function(el) { cls(el, name, on); }); }
 
     function applyStep(n) {
-      steps.forEach((el) => el.classList.toggle('active', Number(el.dataset.step) === n));
-      const lines = svg.querySelectorAll('.s11-dashed-line');
-      const rings = svg.querySelectorAll('.s11-ring');
-      const query = svg.querySelector('.s11-query');
-      const vote = svg.querySelector('.s11-vote');
-      const glow = svg.querySelector('.s11-result-glow');
-      const finalDot = svg.querySelector('.s11-result-final');
+      // Highlight active step text
+      steps.forEach(function(el) { cls(el, 'active', +el.dataset.step === n); });
 
-      query.classList.toggle('show', n >= 2);
-      lines.forEach((l) => l.classList.toggle('show', n >= 3));
-      rings.forEach((r) => r.classList.toggle('show', n >= 5));
-      vote.classList.toggle('show', n >= 6);
-      glow.classList.toggle('show', n >= 7);
+      // Step 1 — training data glow
+      cls(ptsA, 'glow', n === 1);
+      cls(ptsB, 'glow', n === 1);
+
+      // Step 2+ — query point appears
+      cls(query, 'show', n >= 2);
+
+      // Step 3 — all far lines visible; step 4 — far lines dim
+      clsAll(farLines, 'show', n === 3);
+      clsAll(farLines, 'dim',  n === 4);
+
+      // Step 3-5 — K-nearest lines; highlighted in step 4
+      clsAll(nearLines, 'show',      n >= 3 && n <= 5);
+      clsAll(nearLines, 'highlight', n === 4);
+
+      // Step 4 — sort rank labels
+      clsAll(ranks, 'show', n === 4);
+
+      // Step 5+ — rings by class color
+      clsAll(rings,  'show',      n >= 5);
+      clsAll(ringsA, 'vote-glow', n === 6);
+      clsAll(ringsB, 'vote-glow', n === 6);
+
+      // Step 6+ — vote panel
+      cls(vote, 'show', n >= 6);
+
+      // Step 7 — result glow + final dot
+      cls(glow, 'show', n >= 7);
       if (finalDot) finalDot.setAttribute('opacity', n >= 7 ? '1' : '0');
     }
 
     function start() {
       stop();
       current = 1;
-      applyStep(current);
-      timer = setInterval(() => {
+      applyStep(1);
+      timer = setInterval(function() {
         current = current >= 7 ? 1 : current + 1;
         applyStep(current);
-      }, 1800);
+      }, 2200);
     }
     function stop() {
       if (timer) { clearInterval(timer); timer = null; }
     }
-
-    const stage = document.querySelector('deck-stage');
-    if (stage) {
-      stage.addEventListener('slidechange', () => {
-        if (section.hasAttribute('data-deck-active')) start();
-        else stop();
-      });
+    function sync() {
+      if (section.hasAttribute('data-deck-active')) { if (!timer) start(); }
+      else stop();
     }
-    if (section.hasAttribute('data-deck-active')) start();
-    // Also start on mouseover for desktops not driving the deck
-    section.addEventListener('mouseenter', () => { if (!timer) start(); });
-  })();
+
+    // MutationObserver is the most reliable trigger
+    new MutationObserver(sync).observe(section, {
+      attributes: true, attributeFilter: ['data-deck-active']
+    });
+
+    var stage = document.querySelector('deck-stage');
+    if (stage) stage.addEventListener('slidechange', sync);
+
+    sync();
+    setTimeout(sync, 500);
+    setTimeout(sync, 1500);
+
+    section.addEventListener('mouseenter', function() { if (!timer) start(); });
+  }());
 </script>
 
 <!-- SLIDE 12 — DIAGRAMA DE BLOCOS -->

@@ -423,32 +423,74 @@
     50% { transform: translateY(-5px) rotate(-1deg); }
   }
 
-  /* Slide 11 — step-by-step interaction */
-  .step-item { transition: all 0.4s ease; opacity: 0.45; }
-  .step-item.active { opacity: 1; transform: translateX(8px); }
-  .step-item.active .step-num { color: var(--cyan) !important; transform: scale(1.15); }
-  .step-num { display: inline-block; transition: transform 0.3s ease; }
+  /* Slide 11 — step-by-step interaction.
+     fadeUp animates opacity + transform(translateY) with fill:forwards, so
+     those properties are frozen after the entry animation. Only `filter` and
+     `text-shadow` are safe to use here — fadeUp never touches them. */
+  .step-item {
+    transition: filter 0.5s ease;
+    filter: brightness(0.4) saturate(0.3);
+  }
+  .step-item.active {
+    filter: brightness(1.35) saturate(1.6);
+  }
+  .step-item.active .step-num {
+    color: var(--cyan) !important;
+    text-shadow: 0 0 14px rgba(92,225,255,0.95), 0 0 32px rgba(92,225,255,0.55);
+  }
+  .step-num { display: inline-block; transition: text-shadow 0.4s ease; }
 
   deck-stage > section[data-deck-active] [data-anim] { will-change: opacity, transform; }
 
   /* SVG step animation classes (slide 11) */
   .s11-step-glow { opacity: 0; transition: opacity 0.5s ease; }
   .s11-step-glow.show { opacity: 1; }
+
+  /* K-nearest distance lines */
   .s11-dashed-line {
     stroke-dasharray: 5 4;
     stroke-dashoffset: 200;
     opacity: 0;
-    transition: stroke-dashoffset 0.7s ease, opacity 0.4s ease;
+    transition: stroke-dashoffset 0.7s ease, opacity 0.4s ease, stroke-width 0.3s ease, filter 0.3s ease;
   }
   .s11-dashed-line.show { opacity: 0.85; stroke-dashoffset: 0; }
+  .s11-dashed-line.highlight { opacity: 1; stroke-width: 2.8; filter: drop-shadow(0 0 5px rgba(92,225,255,0.7)); }
+
+  /* Far lines — non-K distances shown in step 3 & 4 */
+  .s11-line-far {
+    opacity: 0;
+    stroke-dasharray: 3 7;
+    transition: opacity 0.5s ease;
+  }
+  .s11-line-far.show { opacity: 0.32; }
+  .s11-line-far.dim  { opacity: 0.08; }
+
+  /* Sort rank labels — step 4 only */
+  .s11-rank { opacity: 0; transition: opacity 0.45s ease; }
+  .s11-rank.show { opacity: 1; }
+
+  /* Highlight rings — K nearest */
   .s11-ring {
     opacity: 0;
     transform: scale(0.6);
     transform-origin: center;
     transform-box: fill-box;
-    transition: opacity 0.4s ease, transform 0.4s cubic-bezier(.2,.7,.2,1.4);
+    transition: opacity 0.4s ease, transform 0.4s cubic-bezier(.2,.7,.2,1.4), filter 0.4s ease;
   }
-  .s11-ring.show { opacity: 0.8; transform: scale(1); }
+  .s11-ring.show { opacity: 0.88; transform: scale(1); }
+  .s11-ring-a { stroke: #5ce1ff; }
+  .s11-ring-b { stroke: #a98bff; }
+  .s11-ring-a.show { filter: drop-shadow(0 0 6px rgba(92,225,255,0.75)); }
+  .s11-ring-b.show { filter: drop-shadow(0 0 6px rgba(169,139,255,0.75)); }
+  .s11-ring-a.vote-glow { filter: drop-shadow(0 0 12px rgba(92,225,255,1)) drop-shadow(0 0 26px rgba(92,225,255,0.55)); opacity: 1; }
+  .s11-ring-b.vote-glow { filter: drop-shadow(0 0 5px rgba(169,139,255,0.6)); opacity: 0.65; }
+
+  /* Training data glow — step 1 */
+  .s11-pts-a, .s11-pts-b { transition: filter 0.6s ease; }
+  .s11-pts-a.glow { filter: drop-shadow(0 0 12px rgba(92,225,255,0.95)) drop-shadow(0 0 26px rgba(92,225,255,0.45)); }
+  .s11-pts-b.glow { filter: drop-shadow(0 0 12px rgba(230,184,106,0.95)) drop-shadow(0 0 26px rgba(230,184,106,0.45)); }
+
+  /* Query point */
   .s11-query {
     opacity: 0;
     transform: scale(0.4);
@@ -456,10 +498,18 @@
     transition: opacity 0.5s ease, transform 0.5s cubic-bezier(.2,.7,.2,1.4);
   }
   .s11-query.show { opacity: 1; transform: scale(1); }
+
+  /* Vote panel */
   .s11-vote { opacity: 0; transition: opacity 0.5s ease; }
   .s11-vote.show { opacity: 1; }
+
+  /* Result glow and final dot */
   .s11-result-glow { opacity: 0; transition: opacity 0.6s ease; }
   .s11-result-glow.show { opacity: 1; }
+  .s11-result-final {
+    transition: opacity 0.55s ease, r 0.5s cubic-bezier(.2,.7,.2,1.4);
+    filter: drop-shadow(0 0 14px rgba(92,225,255,1)) drop-shadow(0 0 28px rgba(92,225,255,0.55));
+  }
 
   /* Slides 13/14/15 — distance figure entry animations */
   .dist-fig circle, .dist-fig line, .dist-fig text, .dist-fig polyline, .dist-fig polygon, .dist-fig rect, .dist-fig path { opacity: 0; }
